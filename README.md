@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PURIENCE (PURE + EXPERIENCE)
 
-## Getting Started
+> **What is actually worth experiencing?**
 
-First, run the development server:
+Purience is a consumer-first discovery and booking platform for extraordinary experiences worldwide.
 
+**An [EM300.co](https://em300.co) Company.**
+
+---
+
+## 🌟 Brand & Visual Identity
+- **Palette**: Warm Ivory (`#F7F4EE`), Deep Charcoal (`#191918`), Burnt Terracotta (`#C65D3A`), Desert Clay (`#A96F52`), Sand (`#E9E0D2`), Forest (`#40584A`).
+- **Typography**: Playfair Display (Serif Editorial) + Plus Jakarta Sans (Modern Body).
+- **Core Philosophy**: Discovery-first, editorial, human, emotional connection over transaction catalogs.
+
+---
+
+## 🏛️ System Architecture
+Purience maintains strict technical and commercial separation from underlying supply providers:
+- **`ExperienceSourceAdapter`**: Interface for supply providers.
+- **`CurienceExperienceAdapter`**: Upstream distribution partner adapter mapping Curience schemas (`CUR_EXP_...`) to canonical Purience schemas (`PUR_EXP_...`).
+- **`PurienceDirectAdapter`**: Direct artisan and maker supply adapter.
+- **`SupplyRegistry`**: Unifies multi-supply sources, fallbacks, and transactional booking execution.
+
+---
+
+## 🚀 Getting Started
+
+### 1. Install dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Run local development server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view Purience.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Build for production
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📁 Key Routes
+- `/`: Editorial Homepage with discovery modules ("Worth travelling for", "Purience Picks", "Unexpected Marrakech", "Make something with your hands", "Eat differently", "After dark").
+- `/discover`: Faceted discovery feed with instant filters, price sliders, and category pills.
+- `/experiences/[slug]`: Cinematic experience detail page with timeline, host profile, inclusions, and interactive booking widget.
+- `/destinations/[slug]`: Editorial destination guides for Marrakech, Seville, Paris, Essaouira, Barcelona.
+- `/collections/[slug]`: Curated editorial playlists.
+- `/saved`: Personal wishlists with instant shareable links.
+- `/checkout/[id]`: Multi-currency booking flow with instant confirmation.
+- `/booking/confirmation/[bookingRef]`: Confirmed voucher with calendar `.ics` download and host directions.
+- `/design-system`: Living showcase of tokens, typography, and UI components.
+- `/admin`: Curatorial merchandising console and supply adapter health monitor.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📚 Documentation
+Detailed documentation is maintained in the `/docs` directory:
+- [Architecture](docs/ARCHITECTURE.md)
+- [Design System](docs/DESIGN_SYSTEM.md)
+- [Curience Integration](docs/CURIENCE_INTEGRATION.md)
+- [Booking Engine](docs/BOOKING.md)
+- [Analytics](docs/ANALYTICS.md)
+- [SEO](docs/SEO.md)
+- [Deployment](docs/DEPLOYMENT.md)
+- [Decisions (ADRs)](docs/DECISIONS.md)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© Purience Inc. An [EM300.co](https://em300.co) Company.
