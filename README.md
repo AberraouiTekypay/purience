@@ -59,7 +59,7 @@ npm run build
 ---
 
 ## 📚 Documentation
-Detailed documentation is maintained in the `/docs` directory:
+- [Image Audit & Bilingual System](docs/IMAGE_AUDIT_AND_I18N.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Design System](docs/DESIGN_SYSTEM.md)
 - [Curience Integration](docs/CURIENCE_INTEGRATION.md)

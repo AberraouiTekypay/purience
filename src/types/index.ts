@@ -22,10 +22,13 @@ export interface Destination {
   id: string;
   name: string;
   country: string;
+  countryFr?: string;
   slug: string;
   heroImage: string;
   editorialIntro: string;
+  editorialIntroFr?: string;
   curatorQuote: string;
+  curatorQuoteFr?: string;
   badge?: string;
   lat: number;
   lng: number;
@@ -42,7 +45,9 @@ export interface ExperienceImage {
 export interface HostProfile {
   name: string;
   title: string;
+  titleFr?: string;
   bio: string;
+  bioFr?: string;
   avatar: string;
   verified: boolean;
   experienceYears?: number;
@@ -51,8 +56,10 @@ export interface HostProfile {
 export interface ExperienceOption {
   id: string;
   name: string;
+  nameFr?: string;
   priceDiffEUR: number; // in EUR (relative to base)
   description: string;
+  descriptionFr?: string;
 }
 
 export interface TimeSlot {
@@ -71,18 +78,25 @@ export interface PurienceExperience {
   id: string; // Canonical Purience ID e.g. PUR_EXP_10291
   slug: string;
   title: string;
+  titleFr?: string;
   shortHeadline: string; // One-line editorial hook
+  shortHeadlineFr?: string;
   editorialPositioning: string; // Expanded editorial justification
+  editorialPositioningFr?: string;
   description: string;
+  descriptionFr?: string;
   destination: Destination;
   category: ExperienceCategory;
   categoryLabel: string;
+  categoryLabelFr?: string;
   badge?: ExperienceBadge;
   basePriceEUR: number; // Base price in whole EUR
   isFromPrice: boolean;
   duration: string;
+  durationFr?: string;
   languages: string[];
   groupType: 'Small Group' | 'Private' | 'Solo Friendly';
+  groupTypeFr?: string;
   maxGuests: number;
   images: ExperienceImage[];
   rating: {
@@ -91,22 +105,30 @@ export interface PurienceExperience {
     verifiedCount: number;
   };
   whyYoullLoveIt: string[];
+  whyYoullLoveItFr?: string[];
   whatYoullDo: Array<{
     step: string;
     title: string;
+    titleFr?: string;
     description: string;
+    descriptionFr?: string;
   }>;
   host: HostProfile;
   included: string[];
+  includedFr?: string[];
   notIncluded: string[];
+  notIncludedFr?: string[];
   meetingPoint: {
     address: string;
     description: string;
+    descriptionFr?: string;
     lat: number;
     lng: number;
   };
   accessibility: string[];
+  accessibilityFr?: string[];
   cancellationPolicy: string;
+  cancellationPolicyFr?: string;
   source: {
     provider: 'curience' | 'purience_direct' | 'external';
     externalId: string;
@@ -120,11 +142,15 @@ export interface Collection {
   id: string;
   slug: string;
   title: string;
+  titleFr?: string;
   subtitle: string;
+  subtitleFr?: string;
   editorialNote: string;
+  editorialNoteFr?: string;
   coverImage: string;
   curator: string;
   curatorRole: string;
+  curatorRoleFr?: string;
   destinationSlug?: string;
   experienceIds: string[];
 }

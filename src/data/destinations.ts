@@ -19,7 +19,7 @@ export const DESTINATIONS: Record<string, Destination> = {
     name: "Seville",
     country: "Spain",
     slug: "seville",
-    heroImage: "https://images.unsplash.com/photo-1583200424564-9f8992f1a603?auto=format&fit=crop&w=2000&q=85",
+    heroImage: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=2000&q=85",
     editorialIntro: "Andalusia's emotional capital breathes through terracotta roofs, resonant flamenco floorboards, and the sweet perfume of bitter orange blossoms carried on warm evening air.",
     curatorQuote: "Seville reveals itself when the midday heat breaks. That's when neighborhood tabernas swing open and flamenco guitars speak without microphones.",
     badge: "Featured Destination",

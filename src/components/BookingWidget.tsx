@@ -14,7 +14,9 @@ interface BookingWidgetProps {
 
 export function BookingWidget({ experience, isStickyMobile = false }: BookingWidgetProps) {
   const router = useRouter();
-  const { formatCurrency, currency } = useLocale();
+  const { formatCurrency, currency, language } = useLocale();
+
+  const isFr = language === "fr";
 
   const [selectedDate, setSelectedDate] = useState<string>(
     experience.availableDates[0]?.date || "2026-10-01"
@@ -40,7 +42,7 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
   const handleStartBooking = () => {
     analytics.track("checkout_started", {
       experienceId: experience.id,
-      experienceTitle: experience.title,
+      experienceTitle: isFr ? (experience.titleFr || experience.title) : experience.title,
       currency,
       amountEUR: totalPriceEUR,
     });
@@ -60,7 +62,11 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
     return (
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-border px-4 py-3 sm:hidden flex items-center justify-between shadow-2xl">
         <div>
-          <div className="text-[11px] text-muted">Total for {guests} {guests === 1 ? "guest" : "guests"}</div>
+          <div className="text-[11px] text-muted">
+            {isFr
+              ? `Total pour ${guests} ${guests === 1 ? "voyageur" : "voyageurs"}`
+              : `Total for ${guests} ${guests === 1 ? "guest" : "guests"}`}
+          </div>
           <div className="text-lg font-bold font-sans text-charcoal">
             {formatCurrency(totalPriceEUR)}
           </div>
@@ -69,7 +75,7 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
           onClick={handleStartBooking}
           className="bg-terracotta hover:bg-terracotta-hover text-white px-6 py-2.5 rounded-full font-medium text-sm transition shadow-sm"
         >
-          Reserve Spots
+          {isFr ? "Réserver ma place" : "Reserve Spots"}
         </button>
       </div>
     );
@@ -80,15 +86,19 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
       {/* Header Pricing */}
       <div className="flex items-baseline justify-between border-b border-border/60 pb-5">
         <div>
-          <span className="text-xs text-muted block">Experience Price</span>
+          <span className="text-xs text-muted block">
+            {isFr ? "Prix de l'expérience" : "Experience Price"}
+          </span>
           <span className="font-editorial text-3xl font-bold text-charcoal">
             {formatCurrency(pricePerPersonEUR)}
           </span>
-          <span className="text-xs text-muted ml-1">/ person</span>
+          <span className="text-xs text-muted ml-1">
+            {isFr ? "/ personne" : "/ person"}
+          </span>
         </div>
         <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-forest-light text-forest text-xs font-semibold">
           <ShieldCheck className="w-3.5 h-3.5" />
-          <span>Instant Confirmation</span>
+          <span>{isFr ? "Confirmation instantanée" : "Instant Confirmation"}</span>
         </div>
       </div>
 
@@ -96,13 +106,13 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
       <div className="space-y-2">
         <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-charcoal">
           <Calendar className="w-3.5 h-3.5 text-terracotta" />
-          <span>Select Date</span>
+          <span>{isFr ? "Sélectionner une date" : "Select Date"}</span>
         </label>
         <div className="grid grid-cols-2 gap-2">
           {experience.availableDates.map((day) => {
             const isSelected = day.date === selectedDate;
             const dateObj = new Date(day.date + "T00:00:00");
-            const formattedDate = dateObj.toLocaleDateString("en-US", {
+            const formattedDate = dateObj.toLocaleDateString(isFr ? "fr-FR" : "en-US", {
               weekday: "short",
               month: "short",
               day: "numeric",
@@ -122,9 +132,11 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
                     : "border-border hover:border-terracotta/40 text-charcoal"
                 }`}
               >
-                <div>{formattedDate}</div>
+                <div className="capitalize">{formattedDate}</div>
                 <div className="text-[10px] text-muted mt-0.5">
-                  {day.slots.length} time slot{day.slots.length > 1 ? "s" : ""}
+                  {isFr
+                    ? `${day.slots.length} créneau${day.slots.length > 1 ? "x" : ""}`
+                    : `${day.slots.length} time slot${day.slots.length > 1 ? "s" : ""}`}
                 </div>
               </button>
             );
@@ -136,7 +148,7 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
       <div className="space-y-2">
         <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-charcoal">
           <Clock className="w-3.5 h-3.5 text-terracotta" />
-          <span>Available Time Slot</span>
+          <span>{isFr ? "Créneaux disponibles" : "Available Time Slot"}</span>
         </label>
         <div className="flex flex-wrap gap-2">
           {availableSlots.map((slot) => {
@@ -152,7 +164,7 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
                     : "border-border hover:border-charcoal text-charcoal"
                 }`}
               >
-                {slot.time} ({slot.spotsLeft} left)
+                {slot.time} ({slot.spotsLeft} {isFr ? "restant" + (slot.spotsLeft > 1 ? "s" : "") : "left"})
               </button>
             );
           })}
@@ -163,7 +175,7 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
       {experience.options.length > 1 && (
         <div className="space-y-2">
           <label className="block text-xs font-semibold uppercase tracking-wider text-charcoal">
-            Tier Options
+            {isFr ? "Options & Formules" : "Tier Options"}
           </label>
           <div className="space-y-2">
             {experience.options.map((opt) => {
@@ -199,11 +211,11 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
       <div className="space-y-2">
         <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-charcoal">
           <Users className="w-3.5 h-3.5 text-terracotta" />
-          <span>Participants</span>
+          <span>{isFr ? "Participants" : "Participants"}</span>
         </label>
         <div className="flex items-center justify-between p-3 rounded-xl border border-border">
           <span className="text-xs font-medium text-charcoal">
-            {guests} {guests === 1 ? "Traveler" : "Travelers"} (Max {experience.maxGuests})
+            {guests} {isFr ? (guests === 1 ? "Voyageur" : "Voyageurs") : (guests === 1 ? "Traveler" : "Travelers")} ({isFr ? `Max ${experience.maxGuests}` : `Max ${experience.maxGuests}`})
           </span>
           <div className="flex items-center gap-2">
             <button
@@ -231,7 +243,7 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
       <div className="pt-4 border-t border-border space-y-2 text-xs">
         <div className="flex justify-between text-muted">
           <span>
-            {formatCurrency(pricePerPersonEUR)} × {guests} {guests === 1 ? "guest" : "guests"}
+            {formatCurrency(pricePerPersonEUR)} × {guests} {isFr ? (guests === 1 ? "voyageur" : "voyageurs") : (guests === 1 ? "guest" : "guests")}
           </span>
           <span className="font-sans font-medium">{formatCurrency(totalPriceEUR)}</span>
         </div>
@@ -249,14 +261,20 @@ export function BookingWidget({ experience, isStickyMobile = false }: BookingWid
         onClick={handleStartBooking}
         className="w-full py-4 rounded-full bg-terracotta hover:bg-terracotta-hover text-white text-sm font-semibold tracking-wide transition shadow-lg shadow-terracotta/20 cursor-pointer flex items-center justify-center gap-2"
       >
-        <span>Reserve this experience</span>
+        <span>{isFr ? "Réserver cette expérience" : "Reserve this experience"}</span>
       </button>
 
       {/* Supply Transparency Note */}
       <div className="text-center text-[11px] text-muted space-y-1">
-        <div>No immediate payment required for inquiry reservation</div>
+        <div>
+          {isFr
+            ? "Aucun paiement immédiat requis pour la demande"
+            : "No immediate payment required for inquiry reservation"}
+        </div>
         <div className="text-[10px] text-muted/70">
-          Operated via {experience.source.sourceName} • Guaranteed Purience standard
+          {isFr
+            ? `Opéré via ${experience.source.sourceName} • Standard Purience garanti`
+            : `Operated via ${experience.source.sourceName} • Guaranteed Purience standard`}
         </div>
       </div>
     </div>

@@ -24,11 +24,13 @@ export function Navbar() {
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [currMenuOpen, setCurrMenuOpen] = useState(false);
 
+  const isFr = language === "fr";
+
   const navLinks = [
-    { href: "/discover", label: "Discover" },
+    { href: "/discover", label: isFr ? "Découvrir" : "Discover" },
     { href: "/destinations", label: "Destinations" },
     { href: "/collections", label: "Collections" },
-    { href: "/saved", label: "Saved", badge: savedCount > 0 ? savedCount : null },
+    { href: "/saved", label: isFr ? "Enregistrés" : "Saved", badge: savedCount > 0 ? savedCount : null },
   ];
 
   return (
@@ -41,7 +43,7 @@ export function Navbar() {
               PURIENCE
             </span>
             <span className="text-[9px] tracking-[0.28em] uppercase text-muted font-medium -mt-1">
-              Pure + Experience
+              {isFr ? "Pur + Expérience" : "Pure + Experience"}
             </span>
           </div>
         </Link>
@@ -73,7 +75,27 @@ export function Navbar() {
         </nav>
 
         {/* Currency & Language Selectors + Action */}
-        <div className="hidden md:flex items-center gap-4 text-xs">
+        <div className="hidden md:flex items-center gap-3 text-xs">
+          {/* Direct Quick Language Switcher EN / FR */}
+          <div className="flex items-center bg-white/70 border border-border rounded-full p-0.5">
+            <button
+              onClick={() => setLanguage("en")}
+              className={`px-2.5 py-1 rounded-full font-medium transition cursor-pointer ${
+                language === "en" ? "bg-terracotta text-white shadow-sm font-semibold" : "text-muted hover:text-charcoal"
+              }`}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLanguage("fr")}
+              className={`px-2.5 py-1 rounded-full font-medium transition cursor-pointer ${
+                language === "fr" ? "bg-terracotta text-white shadow-sm font-semibold" : "text-muted hover:text-charcoal"
+              }`}
+            >
+              FR
+            </button>
+          </div>
+
           {/* Currency Dropdown */}
           <div className="relative">
             <button
@@ -81,7 +103,7 @@ export function Navbar() {
                 setCurrMenuOpen(!currMenuOpen);
                 setLangMenuOpen(false);
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border bg-white/60 hover:bg-white text-charcoal font-medium transition"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border bg-white/60 hover:bg-white text-charcoal font-medium transition cursor-pointer"
               aria-label="Select Currency"
             >
               <Coins className="w-3.5 h-3.5 text-muted" />
@@ -91,7 +113,7 @@ export function Navbar() {
             {currMenuOpen && (
               <div className="absolute right-0 mt-2 w-44 bg-white border border-border rounded-xl shadow-xl py-2 z-50 animate-in fade-in zoom-in-95">
                 <div className="px-3 py-1 text-[10px] uppercase tracking-wider text-muted font-semibold">
-                  Display Currency
+                  {isFr ? "Devise d'affichage" : "Display Currency"}
                 </div>
                 {SUPPORTED_CURRENCIES.map((c) => (
                   <button
@@ -100,7 +122,7 @@ export function Navbar() {
                       setCurrency(c.code);
                       setCurrMenuOpen(false);
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-sand/40 transition ${
+                    className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-sand/40 transition cursor-pointer ${
                       currency === c.code ? "text-terracotta font-semibold bg-sand/30" : "text-charcoal"
                     }`}
                   >
@@ -112,24 +134,23 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Language Dropdown */}
+          {/* More Languages Dropdown */}
           <div className="relative">
             <button
               onClick={() => {
                 setLangMenuOpen(!langMenuOpen);
                 setCurrMenuOpen(false);
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border bg-white/60 hover:bg-white text-charcoal font-medium transition"
-              aria-label="Select Language"
+              className="p-1.5 rounded-full border border-border bg-white/60 hover:bg-white text-charcoal font-medium transition cursor-pointer"
+              aria-label="Select Other Languages"
             >
-              <Globe className="w-3.5 h-3.5 text-muted" />
-              <span className="uppercase">{language}</span>
+              <Globe className="w-4 h-4 text-muted" />
             </button>
 
             {langMenuOpen && (
               <div className="absolute right-0 mt-2 w-44 bg-white border border-border rounded-xl shadow-xl py-2 z-50 animate-in fade-in zoom-in-95">
                 <div className="px-3 py-1 text-[10px] uppercase tracking-wider text-muted font-semibold">
-                  Interface Language
+                  {isFr ? "Langue d'interface" : "Interface Language"}
                 </div>
                 {SUPPORTED_LANGUAGES.map((l) => (
                   <button
@@ -138,7 +159,7 @@ export function Navbar() {
                       setLanguage(l.code);
                       setLangMenuOpen(false);
                     }}
-                    className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-sand/40 transition ${
+                    className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-sand/40 transition cursor-pointer ${
                       language === l.code ? "text-terracotta font-semibold bg-sand/30" : "text-charcoal"
                     }`}
                   >
@@ -155,12 +176,20 @@ export function Navbar() {
             className="px-4 py-2 bg-charcoal text-ivory hover:bg-terracotta font-medium rounded-full transition-colors flex items-center gap-2 shadow-sm"
           >
             <Compass className="w-3.5 h-3.5" />
-            <span>Discover</span>
+            <span>{isFr ? "Découvrir" : "Discover"}</span>
           </Link>
         </div>
 
         {/* Mobile Action Controls */}
         <div className="flex md:hidden items-center gap-2">
+          {/* Quick mobile language pill */}
+          <button
+            onClick={() => setLanguage(language === "fr" ? "en" : "fr")}
+            className="px-2.5 py-1 text-xs font-semibold rounded-full bg-sand/60 text-charcoal border border-border"
+          >
+            {language === "fr" ? "FR" : "EN"}
+          </button>
+
           <Link
             href="/saved"
             className="relative p-2 text-charcoal hover:text-terracotta"
@@ -206,7 +235,29 @@ export function Navbar() {
 
           <div className="pt-4 border-t border-border flex flex-col gap-3">
             <div className="flex items-center justify-between text-xs text-muted">
-              <span>Currency</span>
+              <span>{isFr ? "Langue" : "Language"}</span>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setLanguage("en")}
+                  className={`px-3 py-1 rounded-md text-xs font-semibold ${
+                    language === "en" ? "bg-terracotta text-white" : "bg-sand text-charcoal"
+                  }`}
+                >
+                  English
+                </button>
+                <button
+                  onClick={() => setLanguage("fr")}
+                  className={`px-3 py-1 rounded-md text-xs font-semibold ${
+                    language === "fr" ? "bg-terracotta text-white" : "bg-sand text-charcoal"
+                  }`}
+                >
+                  Français
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between text-xs text-muted">
+              <span>{isFr ? "Devise" : "Currency"}</span>
               <div className="flex gap-2">
                 {SUPPORTED_CURRENCIES.map((c) => (
                   <button
@@ -217,23 +268,6 @@ export function Navbar() {
                     }`}
                   >
                     {c.code}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between text-xs text-muted">
-              <span>Language</span>
-              <div className="flex gap-2">
-                {SUPPORTED_LANGUAGES.map((l) => (
-                  <button
-                    key={l.code}
-                    onClick={() => setLanguage(l.code)}
-                    className={`px-2.5 py-1 rounded-md text-xs font-semibold ${
-                      language === l.code ? "bg-terracotta text-white" : "bg-sand text-charcoal"
-                    }`}
-                  >
-                    {l.code.toUpperCase()}
                   </button>
                 ))}
               </div>

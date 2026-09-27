@@ -7,7 +7,7 @@ export const COLLECTIONS: Collection[] = [
     title: "Learn From Someone Local",
     subtitle: "Ateliers, family hearths, and guild masters who pass on knowledge hand-to-hand.",
     editorialNote: "The true measure of an experience is whether you walk away with a real piece of wisdom — whether that's learning to wield a chisel, compound a Mediterranean perfume, or read desert stars.",
-    coverImage: "https://images.unsplash.com/photo-1590076215667-875d4ef2d7ee?auto=format&fit=crop&w=1200&q=85",
+    coverImage: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1200&q=85",
     curator: "Purience Editorial Guild",
     curatorRole: "Founding Curators",
     experienceIds: ["PUR_EXP_10291", "PUR_EXP_10292", "PUR_EXP_10296"],

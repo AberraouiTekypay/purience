@@ -2,9 +2,12 @@
 
 import React from "react";
 import Link from "next/link";
+import { useLocale } from "@/context/LocaleContext";
 import { ShieldCheck, Sparkles } from "lucide-react";
 
 export function Footer() {
+  const { language } = useLocale();
+  const isFr = language === "fr";
 
   return (
     <footer className="bg-charcoal text-ivory/80 pt-16 pb-12 border-t border-charcoal-muted mt-auto">
@@ -17,20 +20,28 @@ export function Footer() {
                 PURIENCE
               </span>
               <span className="block text-[9px] tracking-[0.3em] uppercase text-ivory/50 font-medium mt-0.5">
-                Pure + Experience
+                {isFr ? "Pur + Expérience" : "Pure + Experience"}
               </span>
             </Link>
             <p className="text-sm text-ivory/70 max-w-sm leading-relaxed">
-              We help curious travelers answer: <em className="text-white font-medium">What is actually worth experiencing?</em> We curate authentic workshops, deep sky desert nights, and intimate cultural encounters that cannot be replicated.
+              {isFr ? (
+                <>
+                  Nous aidons les voyageurs curieux à répondre à cette question fondamentale : <em className="text-white font-medium">Qu&apos;est-ce qui vaut vraiment la peine d&apos;être vécu ?</em> Nous sélectionnons des ateliers authentiques, des nuits étoilées dans le désert et des rencontres humaines inoubliables.
+                </>
+              ) : (
+                <>
+                  We help curious travelers answer: <em className="text-white font-medium">What is actually worth experiencing?</em> We curate authentic workshops, deep sky desert nights, and intimate cultural encounters that cannot be replicated.
+                </>
+              )}
             </p>
             <div className="flex items-center gap-4 pt-2 text-xs text-ivory/60">
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-forest" />
-                <span>Verified Independent Supply</span>
+                <span>{isFr ? "Fournisseurs Indépendants Vérifiés" : "Verified Independent Supply"}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Sparkles className="w-4 h-4 text-terracotta" />
-                <span>Zero Fabricated Signals</span>
+                <span>{isFr ? "Zéro Signal Artificiel" : "Zero Fabricated Signals"}</span>
               </div>
             </div>
           </div>
@@ -38,17 +49,17 @@ export function Footer() {
           {/* Destinations Column */}
           <div className="space-y-3">
             <h4 className="font-sans text-xs font-semibold uppercase tracking-wider text-white">
-              Curated Hubs
+              {isFr ? "Pôles Célébrés" : "Curated Hubs"}
             </h4>
             <ul className="space-y-2 text-sm text-ivory/70">
               <li>
                 <Link href="/destinations/marrakech" className="hover:text-terracotta transition">
-                  Marrakech, Morocco
+                  Marrakech, {isFr ? "Maroc" : "Morocco"}
                 </Link>
               </li>
               <li>
                 <Link href="/destinations/seville" className="hover:text-terracotta transition">
-                  Seville, Spain
+                  {isFr ? "Séville, Espagne" : "Seville, Spain"}
                 </Link>
               </li>
               <li>
@@ -58,12 +69,12 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/destinations/essaouira" className="hover:text-terracotta transition">
-                  Essaouira, Morocco
+                  Essaouira, {isFr ? "Maroc" : "Morocco"}
                 </Link>
               </li>
               <li>
                 <Link href="/destinations/barcelona" className="hover:text-terracotta transition">
-                  Barcelona, Spain
+                  {isFr ? "Barcelone, Espagne" : "Barcelona, Spain"}
                 </Link>
               </li>
             </ul>
@@ -72,32 +83,32 @@ export function Footer() {
           {/* Editorial Collections Column */}
           <div className="space-y-3">
             <h4 className="font-sans text-xs font-semibold uppercase tracking-wider text-white">
-              Editorial Series
+              {isFr ? "Séries Éditoriales" : "Editorial Series"}
             </h4>
             <ul className="space-y-2 text-sm text-ivory/70">
               <li>
                 <Link href="/collections/learn-from-someone-local" className="hover:text-terracotta transition">
-                  Learn From Someone Local
+                  {isFr ? "Transmis par un artisan local" : "Learn From Someone Local"}
                 </Link>
               </li>
               <li>
                 <Link href="/collections/marrakech-after-dark" className="hover:text-terracotta transition">
-                  Marrakech After Dark
+                  {isFr ? "Marrakech après la tombée du jour" : "Marrakech After Dark"}
                 </Link>
               </li>
               <li>
                 <Link href="/collections/48-hours-in-marrakech" className="hover:text-terracotta transition">
-                  48 Hours in Marrakech
+                  {isFr ? "48 Heures à Marrakech" : "48 Hours in Marrakech"}
                 </Link>
               </li>
               <li>
                 <Link href="/collections/worth-waking-up-early-for" className="hover:text-terracotta transition">
-                  Worth Waking Up Early For
+                  {isFr ? "Qui vaut un réveil à l'aube" : "Worth Waking Up Early For"}
                 </Link>
               </li>
               <li>
                 <Link href="/collections/for-two-unhurried-moments" className="hover:text-terracotta transition">
-                  For Two
+                  {isFr ? "À deux : Instants suspendus" : "For Two"}
                 </Link>
               </li>
             </ul>
@@ -106,27 +117,27 @@ export function Footer() {
           {/* Platform & Transparency Column */}
           <div className="space-y-3">
             <h4 className="font-sans text-xs font-semibold uppercase tracking-wider text-white">
-              Platform & Architecture
+              {isFr ? "Plateforme & Architecture" : "Platform & Architecture"}
             </h4>
             <ul className="space-y-2 text-sm text-ivory/70">
               <li>
                 <Link href="/discover" className="hover:text-terracotta transition">
-                  Discovery Feed
+                  {isFr ? "Flux Découverte" : "Discovery Feed"}
                 </Link>
               </li>
               <li>
                 <Link href="/design-system" className="hover:text-terracotta transition">
-                  Design System Showcase
+                  {isFr ? "Système de Design" : "Design System Showcase"}
                 </Link>
               </li>
               <li>
                 <Link href="/admin" className="hover:text-terracotta transition">
-                  Supply & Merchandising
+                  {isFr ? "Approvisionnement & Curation" : "Supply & Merchandising"}
                 </Link>
               </li>
               <li>
                 <Link href="/saved" className="hover:text-terracotta transition">
-                  Saved Collections
+                  {isFr ? "Collections Enregistrées" : "Saved Collections"}
                 </Link>
               </li>
             </ul>
@@ -140,7 +151,7 @@ export function Footer() {
             <span>•</span>
             {/* Critical requirement: An EM300.co Company link */}
             <span>
-              An{" "}
+              {isFr ? "Une entreprise " : "An "}
               <a
                 href="https://em300.co"
                 target="_blank"
@@ -148,14 +159,16 @@ export function Footer() {
                 className="text-ivory font-semibold underline decoration-terracotta underline-offset-4 hover:text-terracotta transition"
               >
                 EM300.co
-              </a>{" "}
-              Company
+              </a>
+              {isFr ? "" : " Company"}
             </span>
           </div>
 
           <div className="flex items-center gap-6">
             <span className="text-[11px] text-ivory/40">
-              Global Multi-Supply Architecture • Canonical Experience Protocol
+              {isFr
+                ? "Architecture Multi-Fournisseurs • Protocole d'Expériences Canoniques"
+                : "Global Multi-Supply Architecture • Canonical Experience Protocol"}
             </span>
           </div>
         </div>

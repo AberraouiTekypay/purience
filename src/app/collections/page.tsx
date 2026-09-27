@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { COLLECTIONS } from "@/data/collections";
+import { LocalizedText } from "@/components/LocalizedText";
 import { ArrowRight, Layers } from "lucide-react";
 
 export const metadata = {
@@ -15,13 +16,22 @@ export default function CollectionsIndexPage() {
       <div className="space-y-3 max-w-2xl">
         <span className="text-xs font-semibold uppercase tracking-wider text-terracotta flex items-center gap-1.5">
           <Layers className="w-3.5 h-3.5" />
-          <span>Curated Playlists</span>
+          <LocalizedText
+            en="Curated Playlists"
+            fr="Parcours Thématiques"
+          />
         </span>
         <h1 className="font-editorial text-4xl sm:text-5xl font-bold text-charcoal">
-          Editorial Collections.
+          <LocalizedText
+            en="Editorial Collections."
+            fr="Collections Éditoriales."
+          />
         </h1>
         <p className="text-sm sm:text-base text-muted leading-relaxed">
-          Rather than searching through endless disparate tours, explore cohesive sequences of experiences curated around emotional themes, early mornings, and shared unhurried moments.
+          <LocalizedText
+            en="Rather than searching through endless disparate tours, explore cohesive sequences of experiences curated around emotional themes, early mornings, and shared unhurried moments."
+            fr="Plutôt que de chercher parmi d'innombrables excursions disparates, explorez des séquences cohérentes d'expériences conçues autour d'émotions partagées et de moments suspendus."
+          />
         </p>
       </div>
 
@@ -42,7 +52,8 @@ export default function CollectionsIndexPage() {
               />
               <div className="absolute top-4 left-4">
                 <span className="px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-charcoal/80 backdrop-blur-md text-white">
-                  {col.experienceIds.length} experiences
+                  {col.experienceIds.length}{" "}
+                  <LocalizedText en="experiences" fr="expériences" />
                 </span>
               </div>
             </div>
@@ -50,7 +61,10 @@ export default function CollectionsIndexPage() {
             <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
               <div className="space-y-2">
                 <span className="text-[10px] uppercase font-bold tracking-widest text-terracotta">
-                  Curated by {col.curator}
+                  <LocalizedText
+                    en={`Curated by ${col.curator}`}
+                    fr={`Sélectionné par ${col.curator}`}
+                  />
                 </span>
                 <h3 className="font-editorial text-2xl font-bold text-charcoal group-hover:text-terracotta transition-colors">
                   {col.title}
@@ -61,7 +75,12 @@ export default function CollectionsIndexPage() {
               </div>
 
               <div className="pt-4 border-t border-border/60 flex items-center justify-between text-xs font-semibold text-charcoal group-hover:text-terracotta">
-                <span>Explore Collection</span>
+                <span>
+                  <LocalizedText
+                    en="Explore Collection"
+                    fr="Découvrir la collection"
+                  />
+                </span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { HeroSection } from "@/components/HeroSection";
 import { ExperienceCard } from "@/components/ExperienceCard";
+import { LocalizedText } from "@/components/LocalizedText";
 import { supplyRegistry } from "@/lib/adapters/SupplyRegistry";
 import { DESTINATIONS } from "@/data/destinations";
 import { COLLECTIONS } from "@/data/collections";
@@ -38,20 +39,34 @@ export default async function HomePage() {
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-terracotta mb-2">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Independent of Destination</span>
+              <LocalizedText
+                en="Independent of Destination"
+                fr="Indépendant de la destination"
+              />
             </div>
             <h2 className="font-editorial text-3xl sm:text-4xl font-bold text-charcoal tracking-tight">
-              Worth travelling for.
+              <LocalizedText
+                en="Worth travelling for."
+                fr="Vaut le voyage."
+              />
             </h2>
             <p className="text-sm text-muted mt-1 max-w-xl">
-              Experiences of such singular craft, intimacy, or place that they alone justify packing a bag.
+              <LocalizedText
+                en="Experiences of such singular craft, intimacy, or place that they alone justify packing a bag."
+                fr="Des expériences d'un tel savoir-faire, d'une telle intimité ou d'un tel lieu qu'elles justifient à elles seules de faire sa valise."
+              />
             </p>
           </div>
           <Link
             href="/discover"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal hover:text-terracotta group transition"
           >
-            <span>Explore all experiences</span>
+            <span>
+              <LocalizedText
+                en="Explore all experiences"
+                fr="Explorer toutes les expériences"
+              />
+            </span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -70,20 +85,34 @@ export default async function HomePage() {
             <div>
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-forest mb-2">
                 <Award className="w-3.5 h-3.5" />
-                <span>Editorially Selected</span>
+                <LocalizedText
+                  en="Editorially Selected"
+                  fr="Sélection Éditoriale"
+                />
               </div>
               <h2 className="font-editorial text-3xl sm:text-4xl font-bold text-charcoal tracking-tight">
-                Purience Picks
+                <LocalizedText
+                  en="Purience Picks"
+                  fr="Sélection Purience"
+                />
               </h2>
               <p className="text-sm text-muted mt-1 max-w-xl">
-                Uncompromising on human quality, strictly limited party sizes, and zero mass-tourism cliches.
+                <LocalizedText
+                  en="Uncompromising on human quality, strictly limited party sizes, and zero mass-tourism cliches."
+                  fr="Une qualité humaine sans compromis, des groupes strictement réduits et zéro cliché de tourisme de masse."
+                />
               </p>
             </div>
             <Link
               href="/discover?badge=pick"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal hover:text-terracotta group transition"
             >
-              <span>View full curation</span>
+              <span>
+                <LocalizedText
+                  en="View full curation"
+                  fr="Voir toute la sélection"
+                />
+              </span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -101,30 +130,47 @@ export default async function HomePage() {
         <div className="relative rounded-3xl overflow-hidden bg-charcoal text-ivory p-8 sm:p-12 lg:p-16 border border-charcoal-muted shadow-2xl">
           <div className="relative z-10 max-w-2xl space-y-4">
             <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase bg-terracotta text-white">
-              Curated Destination Spotlight
+              <LocalizedText
+                en="Curated Destination Spotlight"
+                fr="Coup de Projecteur Destination"
+              />
             </span>
             <h2 className="font-editorial text-3xl sm:text-5xl font-bold text-white tracking-tight leading-tight">
-              The Marrakech we would show a friend.
+              <LocalizedText
+                en="The Marrakech we would show a friend."
+                fr="Le Marrakech que l'on ferait découvrir à un ami."
+              />
             </h2>
             <blockquote className="text-sm sm:text-base text-ivory/80 italic border-l-2 border-terracotta pl-4 leading-relaxed font-light">
               &ldquo;{DESTINATIONS.marrakech.curatorQuote}&rdquo;
             </blockquote>
             <p className="text-xs sm:text-sm text-ivory/70 leading-relaxed pt-2">
-              Beyond the predictable tourist thoroughfares lies a city of extraordinary craft guilds, quiet shaded courtyards, and ancient sensory traditions that reward the unhurried traveler.
+              <LocalizedText
+                en="Beyond the predictable tourist thoroughfares lies a city of extraordinary craft guilds, quiet shaded courtyards, and ancient sensory traditions that reward the unhurried traveler."
+                fr="Au-delà des circuits touristiques prévisibles se cache une cité de corporations d'artisans, de cours ombragées et de traditions sensorielles séculaires."
+              />
             </p>
             <div className="pt-4 flex flex-wrap gap-4">
               <Link
                 href="/destinations/marrakech"
                 className="px-6 py-3 rounded-full bg-terracotta hover:bg-terracotta-hover text-white text-sm font-medium transition inline-flex items-center gap-2"
               >
-                <span>Explore Marrakech Guide</span>
+                <span>
+                  <LocalizedText
+                    en="Explore Marrakech Guide"
+                    fr="Explorer le guide Marrakech"
+                  />
+                </span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/collections/48-hours-in-marrakech"
                 className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition"
               >
-                Read: 48 Hours in Marrakech
+                <LocalizedText
+                  en="Read: 48 Hours in Marrakech"
+                  fr="Lire : 48 Heures à Marrakech"
+                />
               </Link>
             </div>
           </div>
@@ -154,20 +200,34 @@ export default async function HomePage() {
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-terracotta mb-2">
               <Layers className="w-3.5 h-3.5" />
-              <span>Living Heritage</span>
+              <LocalizedText
+                en="Living Heritage"
+                fr="Patrimoine Vivant"
+              />
             </div>
             <h2 className="font-editorial text-3xl sm:text-4xl font-bold text-charcoal tracking-tight">
-              Make something with your hands.
+              <LocalizedText
+                en="Make something with your hands."
+                fr="Créer de ses propres mains."
+              />
             </h2>
             <p className="text-sm text-muted mt-1 max-w-xl">
-              Step inside historic ateliers, pick up traditional tools, and craft something tactile alongside master artisans.
+              <LocalizedText
+                en="Step inside historic ateliers, pick up traditional tools, and craft something tactile alongside master artisans."
+                fr="Entrez dans des ateliers historiques, maniez les outils traditionnels et façonnez un objet unique aux côtés de maîtres artisans."
+              />
             </p>
           </div>
           <Link
             href="/discover?category=craft"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal hover:text-terracotta group transition"
           >
-            <span>View craft workshops</span>
+            <span>
+              <LocalizedText
+                en="View craft workshops"
+                fr="Voir les ateliers d'artisanat"
+              />
+            </span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -186,20 +246,34 @@ export default async function HomePage() {
             <div>
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-clay mb-2">
                 <Flame className="w-3.5 h-3.5" />
-                <span>Terroir & Evening Light</span>
+                <LocalizedText
+                  en="Terroir & Evening Light"
+                  fr="Terroir & Tombée de la Nuit"
+                />
               </div>
               <h2 className="font-editorial text-3xl sm:text-4xl font-bold text-charcoal tracking-tight">
-                Eat differently & After dark.
+                <LocalizedText
+                  en="Eat differently & After dark."
+                  fr="Manger autrement & À la nuit tombée."
+                />
               </h2>
               <p className="text-sm text-muted mt-1 max-w-xl">
-                Open fire cooking, unamplified flamenco in 17th-century patios, and stargazing across mineral deserts.
+                <LocalizedText
+                  en="Open fire cooking, unamplified flamenco in 17th-century patios, and stargazing across mineral deserts."
+                  fr="Cuisine au feu de bois, flamenco acoustique dans des patios du XVIIe siècle et contemplation des étoiles dans le désert."
+                />
               </p>
             </div>
             <Link
               href="/discover?category=culinary"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal hover:text-terracotta group transition"
             >
-              <span>Explore evening & culinary</span>
+              <span>
+                <LocalizedText
+                  en="Explore evening & culinary"
+                  fr="Explorer la gastronomie & la nuit"
+                />
+              </span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -217,20 +291,34 @@ export default async function HomePage() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-muted mb-2 block">
-              Curated Series
+              <LocalizedText
+                en="Curated Series"
+                fr="Séries Éditoriales"
+              />
             </span>
             <h2 className="font-editorial text-3xl sm:text-4xl font-bold text-charcoal tracking-tight">
-              Editorial Collections
+              <LocalizedText
+                en="Editorial Collections"
+                fr="Collections Éditoriales"
+              />
             </h2>
             <p className="text-sm text-muted mt-1 max-w-xl">
-              Hand-assembled playlists of extraordinary moments, designed to be experienced together.
+              <LocalizedText
+                en="Hand-assembled playlists of extraordinary moments, designed to be experienced together."
+                fr="Des parcours d'expériences extraordinaires conçus pour être vécus ensemble."
+              />
             </p>
           </div>
           <Link
             href="/collections"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal hover:text-terracotta group transition"
           >
-            <span>All collections</span>
+            <span>
+              <LocalizedText
+                en="All collections"
+                fr="Toutes les collections"
+              />
+            </span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -269,13 +357,22 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-terracotta">
-            Visual Geography
+            <LocalizedText
+              en="Visual Geography"
+              fr="Géographie Visuelle"
+            />
           </span>
           <h2 className="font-editorial text-3xl sm:text-4xl font-bold text-charcoal">
-            Destinations to feel.
+            <LocalizedText
+              en="Destinations to feel."
+              fr="Des destinations à ressentir."
+            />
           </h2>
           <p className="text-sm text-muted">
-            Cities and coastlines where living culture and authentic craftsmanship remain vibrant.
+            <LocalizedText
+              en="Cities and coastlines where living culture and authentic craftsmanship remain vibrant."
+              fr="Des cités et des littoraux où la culture vivante et l'artisanat authentique vibrent encore."
+            />
           </p>
         </div>
 
@@ -310,20 +407,32 @@ export default async function HomePage() {
       {/* 8. PURIENCE PHILOSOPHY MANIFESTO */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 w-full text-center py-12 border-t border-border">
         <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-muted">
-          Our Standard
+          <LocalizedText
+            en="Our Standard"
+            fr="Notre Exigence"
+          />
         </span>
         <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-charcoal mt-3 mb-4">
-          Never mass-tourism. Only genuine human encounters.
+          <LocalizedText
+            en="Never mass-tourism. Only genuine human encounters."
+            fr="Jamais de tourisme de masse. Uniquement des rencontres humaines authentiques."
+          />
         </h3>
         <p className="text-sm sm:text-base text-muted leading-relaxed font-light">
-          We reject fabricated reviews, commission-first algorithms, and sterile stadium-style tours. Every Purience experience is vetted for intimacy, emotional resonance, and respect for local host autonomy.
+          <LocalizedText
+            en="We reject fabricated reviews, commission-first algorithms, and sterile stadium-style tours. Every Purience experience is vetted for intimacy, emotional resonance, and respect for local host autonomy."
+            fr="Nous refusons les faux avis, les algorithmes guidés par les commissions et les visites de masse aseptisées. Chaque expérience Purience est choisie pour son intimité, sa résonance émotionnelle et le respect de l'hôte local."
+          />
         </p>
         <div className="mt-8 flex justify-center">
           <Link
             href="/discover"
             className="px-8 py-3.5 rounded-full bg-charcoal hover:bg-terracotta text-ivory text-sm font-medium transition shadow-md"
           >
-            Start Discovering
+            <LocalizedText
+              en="Start Discovering"
+              fr="Commencer l'exploration"
+            />
           </Link>
         </div>
       </section>

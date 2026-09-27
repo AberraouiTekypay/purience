@@ -7,10 +7,12 @@ import { Search, MapPin, Sparkles } from "lucide-react";
 import { analytics } from "@/lib/analytics";
 
 export function HeroSection() {
-  const { t } = useLocale();
+  const { t, language } = useLocale();
   const router = useRouter();
   const [destinationQuery, setDestinationQuery] = useState("");
   const [categoryQuery, setCategoryQuery] = useState("all");
+
+  const isFr = language === "fr";
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,14 +28,23 @@ export function HeroSection() {
     router.push(`/discover?${params.toString()}`);
   };
 
-  const quickPills = [
-    { label: "Marrakech", query: "Marrakech" },
-    { label: "Artisan Craft", category: "craft" },
-    { label: "After Dark", category: "after-dark" },
-    { label: "Seville", query: "Seville" },
-    { label: "Culinary & Earth", category: "culinary" },
-    { label: "Wild Ocean", category: "ocean" },
-  ];
+  const quickPills = isFr
+    ? [
+        { label: "Marrakech", query: "Marrakech" },
+        { label: "Artisanat d'art", category: "craft" },
+        { label: "À la nuit tombée", category: "after-dark" },
+        { label: "Séville", query: "Seville" },
+        { label: "Gastronomie & Terroir", category: "culinary" },
+        { label: "Océan Sauvage", category: "ocean" },
+      ]
+    : [
+        { label: "Marrakech", query: "Marrakech" },
+        { label: "Artisan Craft", category: "craft" },
+        { label: "After Dark", category: "after-dark" },
+        { label: "Seville", query: "Seville" },
+        { label: "Culinary & Earth", category: "culinary" },
+        { label: "Wild Ocean", category: "ocean" },
+      ];
 
   return (
     <section className="relative overflow-hidden bg-ivory pt-8 pb-16 sm:pb-24 border-b border-border/60">
@@ -71,14 +82,14 @@ export function HeroSection() {
                 <MapPin className="w-4 h-4 text-terracotta shrink-0" />
                 <div className="flex-1">
                   <label htmlFor="hero-destination-input" className="block text-[10px] uppercase font-bold tracking-wider text-muted">
-                    Destination
+                    {isFr ? "Destination" : "Destination"}
                   </label>
                   <input
                     id="hero-destination-input"
                     type="text"
                     value={destinationQuery}
                     onChange={(e) => setDestinationQuery(e.target.value)}
-                    placeholder="Marrakech, Seville, Paris, Essaouira..."
+                    placeholder={isFr ? "Marrakech, Séville, Paris, Essaouira..." : "Marrakech, Seville, Paris, Essaouira..."}
                     className="w-full text-sm font-medium text-charcoal placeholder:text-muted/60 focus:outline-none bg-transparent"
                   />
                 </div>
@@ -89,7 +100,7 @@ export function HeroSection() {
               {/* Category Selector */}
               <div className="sm:w-48 px-3 py-2 sm:py-1">
                 <label htmlFor="hero-category-select" className="block text-[10px] uppercase font-bold tracking-wider text-muted">
-                  Vibe & Theme
+                  {isFr ? "Ambiance & Thème" : "Vibe & Theme"}
                 </label>
                 <select
                   id="hero-category-select"
@@ -97,12 +108,12 @@ export function HeroSection() {
                   onChange={(e) => setCategoryQuery(e.target.value)}
                   className="w-full text-sm font-medium text-charcoal bg-transparent focus:outline-none cursor-pointer"
                 >
-                  <option value="all">Any Experience</option>
-                  <option value="craft">Artisan Craft</option>
-                  <option value="culinary">Culinary & Earth</option>
-                  <option value="after-dark">After Dark & Music</option>
-                  <option value="ocean">Ocean & Nature</option>
-                  <option value="wellness">Slow Down</option>
+                  <option value="all">{isFr ? "Toutes les expériences" : "Any Experience"}</option>
+                  <option value="craft">{isFr ? "Artisanat d'art" : "Artisan Craft"}</option>
+                  <option value="culinary">{isFr ? "Terroir & Gastronomie" : "Culinary & Earth"}</option>
+                  <option value="after-dark">{isFr ? "Nuit & Musique" : "After Dark & Music"}</option>
+                  <option value="ocean">{isFr ? "Océan & Nature" : "Ocean & Nature"}</option>
+                  <option value="wellness">{isFr ? "Ralentir & Bien-être" : "Slow Down"}</option>
                 </select>
               </div>
 
@@ -119,7 +130,7 @@ export function HeroSection() {
             {/* Quick Inspiration Pills */}
             <div className="flex flex-wrap items-center gap-2 pt-4 text-xs">
               <span className="text-muted font-medium text-[11px] uppercase tracking-wider">
-                Popular:
+                {isFr ? "Populaire :" : "Popular:"}
               </span>
               {quickPills.map((pill) => (
                 <button

@@ -3,14 +3,17 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useWishlist } from "@/context/WishlistContext";
+import { useLocale } from "@/context/LocaleContext";
 import { CANONICAL_EXPERIENCES } from "@/data/canonicalInventory";
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { Bookmark, Share2, Compass, Check } from "lucide-react";
 
 export default function SavedPage() {
   const { savedIds } = useWishlist();
+  const { language } = useLocale();
   const [copied, setCopied] = useState(false);
 
+  const isFr = language === "fr";
   const savedExperiences = CANONICAL_EXPERIENCES.filter((exp) => savedIds.includes(exp.id));
 
   const copyWishlistLink = () => {
@@ -28,13 +31,15 @@ export default function SavedPage() {
         <div className="space-y-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-terracotta flex items-center gap-1.5">
             <Bookmark className="w-3.5 h-3.5 fill-terracotta" />
-            <span>Personal Wishlist</span>
+            <span>{isFr ? "Sélection Personnelle" : "Personal Wishlist"}</span>
           </span>
           <h1 className="font-editorial text-4xl sm:text-5xl font-bold text-charcoal">
-            Saved Experiences.
+            {isFr ? "Expériences Enregistrées." : "Saved Experiences."}
           </h1>
           <p className="text-sm text-muted">
-            Experiences you intend to live when the time and place align.
+            {isFr
+              ? "Les expériences que vous prévoyez de vivre lorsque le moment et le lieu s'accorderont."
+              : "Experiences you intend to live when the time and place align."}
           </p>
         </div>
 
@@ -46,12 +51,12 @@ export default function SavedPage() {
             {copied ? (
               <>
                 <Check className="w-3.5 h-3.5 text-forest" />
-                <span>Link Copied</span>
+                <span>{isFr ? "Lien copié" : "Link Copied"}</span>
               </>
             ) : (
               <>
                 <Share2 className="w-3.5 h-3.5 text-muted" />
-                <span>Share this list</span>
+                <span>{isFr ? "Partager cette liste" : "Share this list"}</span>
               </>
             )}
           </button>
@@ -69,17 +74,19 @@ export default function SavedPage() {
         <div className="bg-white rounded-3xl p-16 text-center border border-border max-w-lg mx-auto space-y-5">
           <Bookmark className="w-10 h-10 text-muted/60 mx-auto" />
           <h3 className="font-editorial text-2xl font-bold text-charcoal">
-            Your wishlist is empty.
+            {isFr ? "Votre sélection est vide." : "Your wishlist is empty."}
           </h3>
           <p className="text-sm text-muted leading-relaxed">
-            Click the bookmark icon on any experience to build your personal collection of extraordinary travel moments before booking.
+            {isFr
+              ? "Cliquez sur l'icône marque-page de n'importe quelle expérience pour composer votre carnet de voyage avant de réserver."
+              : "Click the bookmark icon on any experience to build your personal collection of extraordinary travel moments before booking."}
           </p>
           <Link
             href="/discover"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-terracotta hover:bg-terracotta-hover text-white text-xs font-semibold transition"
           >
             <Compass className="w-4 h-4" />
-            <span>Discover Experiences</span>
+            <span>{isFr ? "Découvrir des expériences" : "Discover Experiences"}</span>
           </Link>
         </div>
       )}

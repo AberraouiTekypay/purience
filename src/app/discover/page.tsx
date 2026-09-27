@@ -21,7 +21,8 @@ function DiscoverContent() {
   const initialQuery = searchParams.get("q") || "";
   const initialBadge = searchParams.get("badge") || "all";
 
-  const { formatCurrency } = useLocale();
+  const { formatCurrency, language } = useLocale();
+  const isFr = language === "fr";
 
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
@@ -29,13 +30,21 @@ function DiscoverContent() {
   const [selectedGroupType, setSelectedGroupType] = useState<string>("all");
   const [maxPriceEUR, setMaxPriceEUR] = useState<number>(200);
 
-  const categories: Array<{ id: string; label: string }> = [
-    { id: "all", label: "All Themes" },
-    { id: "craft", label: "Artisan Craft" },
-    { id: "culinary", label: "Culinary & Earth" },
-    { id: "after-dark", label: "After Dark & Music" },
-    { id: "ocean", label: "Ocean & Coastal" },
-  ];
+  const categories: Array<{ id: string; label: string }> = isFr
+    ? [
+        { id: "all", label: "Tous les thèmes" },
+        { id: "craft", label: "Artisanat d'art" },
+        { id: "culinary", label: "Terroir & Gastronomie" },
+        { id: "after-dark", label: "Nuit & Musique" },
+        { id: "ocean", label: "Océan & Littoral" },
+      ]
+    : [
+        { id: "all", label: "All Themes" },
+        { id: "craft", label: "Artisan Craft" },
+        { id: "culinary", label: "Culinary & Earth" },
+        { id: "after-dark", label: "After Dark & Music" },
+        { id: "ocean", label: "Ocean & Coastal" },
+      ];
 
   const destinationsList = Object.values(DESTINATIONS);
 
@@ -44,10 +53,10 @@ function DiscoverContent() {
       // Query filter
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
-        const matchesTitle = exp.title.toLowerCase().includes(q);
-        const matchesDest = exp.destination.name.toLowerCase().includes(q);
-        const matchesCategory = exp.categoryLabel.toLowerCase().includes(q);
-        const matchesDesc = exp.shortHeadline.toLowerCase().includes(q);
+        const matchesTitle = exp.title.toLowerCase().includes(q) || (exp.titleFr && exp.titleFr.toLowerCase().includes(q));
+        const matchesDest = exp.destination.name.toLowerCase().includes(q) || exp.destination.country.toLowerCase().includes(q);
+        const matchesCategory = exp.categoryLabel.toLowerCase().includes(q) || (exp.categoryLabelFr && exp.categoryLabelFr.toLowerCase().includes(q));
+        const matchesDesc = exp.shortHeadline.toLowerCase().includes(q) || (exp.shortHeadlineFr && exp.shortHeadlineFr.toLowerCase().includes(q));
         if (!matchesTitle && !matchesDest && !matchesCategory && !matchesDesc) {
           return false;
         }
@@ -110,13 +119,15 @@ function DiscoverContent() {
       <div className="space-y-3">
         <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-terracotta">
           <Compass className="w-3.5 h-3.5" />
-          <span>Curated Discovery Feed</span>
+          <span>{isFr ? "Sélection Découverte" : "Curated Discovery Feed"}</span>
         </div>
         <h1 className="font-editorial text-4xl sm:text-5xl font-bold text-charcoal tracking-tight">
-          What is actually worth experiencing?
+          {isFr ? "Qu'est-ce qui vaut vraiment la peine d'être vécu ?" : "What is actually worth experiencing?"}
         </h1>
         <p className="text-sm sm:text-base text-muted max-w-2xl">
-          Browse vetted independent experiences across Europe and North Africa, filtered by what moves you.
+          {isFr
+            ? "Explorez des expériences indépendantes sélectionnées avec soin en Europe et en Afrique du Nord."
+            : "Browse vetted independent experiences across Europe and North Africa, filtered by what moves you."}
         </p>
       </div>
 
@@ -131,13 +142,13 @@ function DiscoverContent() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search experiences, keywords, traditions..."
+              placeholder={isFr ? "Rechercher une expérience, artisanat, tradition..." : "Search experiences, keywords, traditions..."}
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border/80 bg-sand/20 text-sm font-medium focus:outline-none focus:border-terracotta transition"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-charcoal"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-charcoal cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -152,7 +163,7 @@ function DiscoverContent() {
               onChange={(e) => setSelectedDestination(e.target.value)}
               className="w-full pl-10 pr-8 py-2.5 rounded-xl border border-border/80 bg-sand/20 text-sm font-medium focus:outline-none focus:border-terracotta transition cursor-pointer appearance-none"
             >
-              <option value="all">All Destinations</option>
+              <option value="all">{isFr ? "Toutes les destinations" : "All Destinations"}</option>
               {destinationsList.map((d) => (
                 <option key={d.slug} value={d.slug}>
                   {d.name}, {d.country}
@@ -165,7 +176,7 @@ function DiscoverContent() {
         {/* Category Pills */}
         <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border/40">
           <span className="text-xs uppercase font-bold tracking-wider text-muted mr-1">
-            Category:
+            {isFr ? "Thème :" : "Category:"}
           </span>
           {categories.map((cat) => (
             <button
@@ -186,7 +197,7 @@ function DiscoverContent() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-border/40 text-xs">
           <div className="flex items-center gap-4">
             <span className="font-medium text-charcoal">
-              Max Price:{" "}
+              {isFr ? "Prix max : " : "Max Price: "}
               <strong className="text-terracotta font-semibold font-sans">
                 {formatCurrency(maxPriceEUR)}
               </strong>
@@ -204,19 +215,31 @@ function DiscoverContent() {
 
           <div className="flex items-center gap-4">
             <span className="text-muted font-medium">
-              Showing{" "}
-              <strong className="text-charcoal font-semibold">
-                {filteredExperiences.length}
-              </strong>{" "}
-              vetted experiences
+              {isFr ? (
+                <>
+                  Affichage de{" "}
+                  <strong className="text-charcoal font-semibold">
+                    {filteredExperiences.length}
+                  </strong>{" "}
+                  expériences sélectionnées
+                </>
+              ) : (
+                <>
+                  Showing{" "}
+                  <strong className="text-charcoal font-semibold">
+                    {filteredExperiences.length}
+                  </strong>{" "}
+                  vetted experiences
+                </>
+              )}
             </span>
             {hasActiveFilters && (
               <button
                 onClick={resetFilters}
-                className="inline-flex items-center gap-1 text-terracotta hover:underline font-semibold"
+                className="inline-flex items-center gap-1 text-terracotta hover:underline font-semibold cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>Reset Filters</span>
+                <span>{isFr ? "Réinitialiser" : "Reset Filters"}</span>
               </button>
             )}
           </div>
@@ -234,16 +257,20 @@ function DiscoverContent() {
         <div className="bg-white rounded-3xl p-12 text-center border border-border space-y-4 max-w-xl mx-auto my-8">
           <Sparkles className="w-8 h-8 text-terracotta mx-auto" />
           <h3 className="font-editorial text-2xl font-bold text-charcoal">
-            No experiences match this exact combination.
+            {isFr
+              ? "Aucune expérience ne correspond à cette combinaison."
+              : "No experiences match this exact combination."}
           </h3>
           <p className="text-sm text-muted">
-            We intentionally maintain a tight, uncompromising standard rather than filling results with generic tours. Try loosening your price or theme filters.
+            {isFr
+              ? "Nous appliquons une sélection stricte plutôt que de proposer des circuits touristiques génériques. Essayez d'ajuster votre budget ou vos critères."
+              : "We intentionally maintain a tight, uncompromising standard rather than filling results with generic tours. Try loosening your price or theme filters."}
           </p>
           <button
             onClick={resetFilters}
-            className="px-6 py-2.5 rounded-full bg-charcoal text-ivory text-xs font-semibold hover:bg-terracotta transition"
+            className="px-6 py-2.5 rounded-full bg-charcoal text-ivory text-xs font-semibold hover:bg-terracotta transition cursor-pointer"
           >
-            Reset all filters
+            {isFr ? "Réinitialiser les filtres" : "Reset all filters"}
           </button>
         </div>
       )}

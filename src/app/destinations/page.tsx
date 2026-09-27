@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { DESTINATIONS } from "@/data/destinations";
+import { LocalizedText } from "@/components/LocalizedText";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export const metadata = {
@@ -17,13 +18,22 @@ export default function DestinationsIndexPage() {
       <div className="space-y-3 max-w-2xl">
         <span className="text-xs font-semibold uppercase tracking-wider text-terracotta flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Curated Geography</span>
+          <LocalizedText
+            en="Curated Geography"
+            fr="Géographie Choisie"
+          />
         </span>
         <h1 className="font-editorial text-4xl sm:text-5xl font-bold text-charcoal">
-          Destinations to feel.
+          <LocalizedText
+            en="Destinations to feel."
+            fr="Des destinations à ressentir."
+          />
         </h1>
         <p className="text-sm sm:text-base text-muted leading-relaxed">
-          We don&apos;t catalog the entire globe indiscriminately. We focus on places where craft traditions, deep culinary terroir, and atmospheric human encounters reward the unhurried traveler.
+          <LocalizedText
+            en="We don't catalog the entire globe indiscriminately. We focus on places where craft traditions, deep culinary terroir, and atmospheric human encounters reward the unhurried traveler."
+            fr="Nous ne cataloguons pas le monde entier sans discernement. Nous nous concentrons sur les lieux où les traditions artisanales, le terroir culinaire et les rencontres humaines récompensent le voyageur qui prend son temps."
+          />
         </p>
       </div>
 
@@ -60,7 +70,12 @@ export default function DestinationsIndexPage() {
               </div>
 
               <div className="pt-4 border-t border-border/60 flex items-center justify-between text-xs font-semibold text-charcoal group-hover:text-terracotta">
-                <span>View {dest.name} curation</span>
+                <span>
+                  <LocalizedText
+                    en={`View ${dest.name} curation`}
+                    fr={`Explorer la sélection ${dest.name}`}
+                  />
+                </span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
